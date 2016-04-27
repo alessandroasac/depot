@@ -26,13 +26,6 @@ class ProductTest < ActiveSupport::TestCase
     assert product.valid?
   end
 
-  def new_product(image_url)
-    Product.new(title:       "My Book Title",
-                description: "yyy",
-                price:       1,
-                image_url:   image_url)
-  end
-
   test "image url" do
     ok = %w{ fred.gif fred.jpg fred.png FRED.JPG FRED.Jpg
              http://a.b.c/x/y/z/more/fred.gif }
@@ -44,4 +37,32 @@ class ProductTest < ActiveSupport::TestCase
       assert new_product(name).invalid?, "#{name} shouldn't be valid"
     end
   end
+
+  test "product is not valid without a unique title" do
+    product = Product.new(title:       products(:ruby).title,
+                          description: "yyy",
+                          price:       1,
+                          image_url:   "fred.gif")
+    assert product.invalid?
+    assert_equal [I18n.translate('errors.messages.taken')], product.errors[:title]
+  end
+
+  test "product must have a title of at least 10 characters" do
+    product = Product.new(title:       "a" * 10,
+                          description: "Teste description",
+                          price:       950.25,
+                          image_url:   "test.gif")
+    assert product.valid?
+    product.title = "a"
+    assert product.invalid?
+  end
+
+  private
+
+     def new_product(image_url)
+      Product.new(title:       "My Book Title",
+                  description: "yyy",
+                  price:       1,
+                  image_url:   image_url)
+    end
 end
