@@ -2,7 +2,7 @@ require 'test_helper'
 
 class LineItemsControllerTest < ActionController::TestCase
   setup do
-    @line_item = line_items(:one)
+    @line_item = line_items(:ruby_item)
   end
 
   test "should get index" do
@@ -35,7 +35,7 @@ class LineItemsControllerTest < ActionController::TestCase
   end
 
   test "should update line_item" do
-    patch :update, id: @line_item, line_item: { cart_id: @line_item.cart_id, product_id: @line_item.product_id }
+    patch :update, id: @line_item, line_item: { product_id: @line_item.product_id }
     assert_redirected_to line_item_path(assigns(:line_item))
   end
 
