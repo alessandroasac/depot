@@ -3,3 +3,4 @@
 ruby_item:
   product: ruby
   cart: ruby_cart
+  order: one
