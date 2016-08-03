@@ -20,3 +20,9 @@ ruby:
     delivered fast, you should add Ruby to your toolbox.
   price: 49.50
   image_url: ruby.png
+
+coffe_script:
+  title: CoffeeScript
+  description: CoffeeScript is JavaScript done right. It provides all of JavaScript
+  price: 36.00
+  image_url: coffee.png
