@@ -2,7 +2,7 @@ $('#notice').hide();
 
 if ($('#cart tr').length == 1) { $('#cart').show(); }
 
-$('#cart').html("<%= escape_javascript render(@cart) %>")
+$('#cart').html("<%= escape_javascript render(@cart) %>");
 
 $('#current_item').css({'background-color': '#88ff88'}).
-  animate({'background-color': '#114411'}, 1000)
+  animate({'background-color': '#114411'}, 1000);
