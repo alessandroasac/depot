@@ -40,8 +40,7 @@ class OrdersController < ApplicationController
         session[:cart_id] = nil
         OrderNotifier.received(@order).deliver_now
 
-        format.html { redirect_to store_url, notice:
-          'Thank you for your order.' }
+        format.html { redirect_to store_url, notice: 'Thank you for your order.' }
         format.json { render :show, status: :created, location: @order }
 
       else
@@ -83,6 +82,6 @@ class OrdersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def order_params
-      params.require(:order).permit(:name, :address, :email, :payment_type_id)
+      params.require(:order).permit(:name, :address, :email, :payment_type_id, :ship_date)
     end
 end

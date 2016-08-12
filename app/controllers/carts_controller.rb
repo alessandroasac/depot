@@ -75,8 +75,9 @@ class CartsController < ApplicationController
       params.fetch(:cart, {})
     end
 
-    def invalid_cart
+    def invalid_cart(error)
       logger.error "Attempt to access invalid cart #{params[:id]}"
       redirect_to store_url, notice: 'Invalid cart'
+      send_email_to_admin(error)
     end
 end

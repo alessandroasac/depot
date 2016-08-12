@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class UserStoriesTest < ActionDispatch::IntegrationTest
-  fixtures :products, :payment_types
+  fixtures :products, :payment_types, :orders
 
   # A user goes to the index page. They select a product, adding it to their​
   # cart, and check out, filling in their details on the checkout form. When​
@@ -53,6 +53,34 @@ class UserStoriesTest < ActionDispatch::IntegrationTest
     assert_equal ['dave@example.com'], mail.to
     assert_equal 'Sam Ruby <depot@example.com>', mail[:from].value
     assert_equal 'Pragmatic Store Order Confirmation', mail.subject
+  end
+
+  test "sending mail on error" do
+    get '/carts/aaa'
+    assert_response :redirect
+
+    mail = ActionMailer::Base.deliveries.last
+    assert_equal "Application Error Notification", mail.subject
+    assert_equal ["alessandro.asac@gmail.com"], mail.to
+    assert_equal ["depot@example.com"], mail.from
+    assert_match "Couldn't find Cart with 'id'=aaa", mail.body.encoded
+  end
+
+  test "sending mail on ship date update" do
+    order = orders(:one)
+    patch order_path(order, order: { name: order.name,
+                                     address: order.address,
+                                     email: order.email,
+                                     payment_type_id: order.payment_type.id,
+                                     ship_date: Date.current })
+
+    mail = ActionMailer::Base.deliveries.last
+    assert_equal "Pragmatic Store Order Shipped", mail.subject
+    assert_equal [order.email], mail.to
+    assert_equal ["depot@example.com"], mail.from
+    assert_match "Pragmatic Order Shipped", mail.body.encoded
+    assert_template '_line_item'
+    assert_match order.line_items.first.product.title, mail.body.encoded
   end
 
 end
