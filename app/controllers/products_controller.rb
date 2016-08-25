@@ -4,6 +4,7 @@ class ProductsController < ApplicationController
   # GET /products
   # GET /products.json
   def index
+    logger.error("BEDIDOouBEDIDA -> user_id=#{session[:user_id]}")
     @products = Product.all
   end
 

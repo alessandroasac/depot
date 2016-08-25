@@ -67,6 +67,7 @@ class UserStoriesTest < ActionDispatch::IntegrationTest
   end
 
   test "sending mail on ship date update" do
+    login_as(:one)
     order = orders(:one)
     patch order_path(order, order: { name: order.name,
                                      address: order.address,
