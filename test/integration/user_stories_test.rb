@@ -56,7 +56,10 @@ class UserStoriesTest < ActionDispatch::IntegrationTest
   end
 
   test "sending mail on error" do
-    get '/carts/aaa'
+    begin
+      get '/carts/aaa'
+    rescue
+    end
     assert_response :redirect
 
     mail = ActionMailer::Base.deliveries.last

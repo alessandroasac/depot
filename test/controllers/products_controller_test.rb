@@ -52,4 +52,10 @@ class ProductsControllerTest < ActionController::TestCase
 
     assert_redirected_to products_path
   end
+
+  test "should not update product when logged out" do
+    logout
+    patch :update, id: @product, product: @update
+    assert_redirected_to login_url
+  end
 end

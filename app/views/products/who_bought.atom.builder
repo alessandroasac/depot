@@ -26,7 +26,7 @@ atom_feed do |feed|
             xhtml.th number_to_currency order.total_price
           end
         end
-        xhtml.p "Paid by #{order.pay_type}"
+        xhtml.p "Paid by #{order.payment_type}"
       end
       entry.author do |author|
         author.name order.name
