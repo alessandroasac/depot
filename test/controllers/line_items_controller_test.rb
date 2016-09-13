@@ -46,4 +46,11 @@ class LineItemsControllerTest < ActionController::TestCase
 
     assert_redirected_to @line_item.cart
   end
+
+  test "should decrement line_item quantity without login" do
+    logout
+    post :decrement, id: @line_item
+
+    assert_redirected_to store_path
+  end
 end
