@@ -24,7 +24,7 @@ Rails.application.routes.draw do
       end
     end
     resources :carts
-      root 'store#index', as: 'store', via: :all
+    root 'store#index', as: 'store', via: :all
   end
 
 end

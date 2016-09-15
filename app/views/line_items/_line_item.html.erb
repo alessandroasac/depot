@@ -5,7 +5,7 @@
 <% end %>
   <td><%= line_item.quantity %>&times;</td>
   <td><%= line_item.product.title %></td>
-  <td class="item_price"><%= number_to_currency(line_item.total_price) %></td>
+  <td class="item_price"><%= convert_and_display(line_item.total_price) %></td>
   <% if local_assigns.fetch :show_decrement_button, true %>
     <td><%= button_to 'Decrement', decrement_line_item_path(line_item), remote: true %></td>
   <% end %>
