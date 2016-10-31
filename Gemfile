@@ -46,3 +46,5 @@ group :development do
   gem 'spring'
 end
 
+gem 'haml', '~> 4.0'
+gem 'kaminari', '~> 0.14'
